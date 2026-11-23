@@ -1,0 +1,608 @@
+/**
+ * Bolivia Fitness Oficial - Base de Datos de Productos y Logística
+ */
+
+const PRODUCTS_DATA = [
+  // COMBOS OFICIALES
+  {
+    id: 'combo-volumen-fuerza',
+    category: 'combos',
+    name: 'Pack Volumen & Fuerza Extrema',
+    subtitle: 'Proteína Whey (5 lbs) + Creatina Monohidratada (300g) + Shaker BF Gratis',
+    price: 480,
+    originalPrice: 570,
+    savings: 90,
+    badge: 'SHAKER GRATIS',
+    rating: 5.0,
+    reviews: 142,
+    image: 'combo_volumen',
+    isCombo: true,
+    description: 'El combo definitivo diseñado para atletas que buscan máxima hipertrofia, aumento de masa magra y ganancia de fuerza explosiva.',
+    itemsIncluded: [
+      '1x 100% Pure Whey Protein 5 lbs (72 servicios)',
+      '1x Creatina Monohidratada Creapure 300g (60 servicios)',
+      '1x Shaker Oficial Bolivia Fitness 700ml con esfera de acero (GRATIS)'
+    ],
+    benefits: [
+      '25g de proteína ultrafiltrada por servicio para síntesis muscular acelerada.',
+      '5g de creatina monohidratada pura para saturación de fosfocreatina celular.',
+      'Acelera la recuperación y reduce el dolor muscular post-entrenamiento.',
+      'Shaker térmico libre de BPA de regalo.'
+    ],
+    usage: 'Toma 1 scoop de Whey Protein inmediatamente después de entrenar con 300ml de agua o leche. Toma 5g de Creatina diariamente (preferentemente post-entreno o por la mañana en días de descanso).',
+    nutrition: {
+      servingSize: '1 scoop (32g)',
+      servings: '72 servicios',
+      calories: '130 kcal',
+      protein: '25g',
+      carbs: '2.5g',
+      fats: '1.5g',
+      bcaa: '5.8g',
+      creatine: '5.0g (en pack)'
+    }
+  },
+  {
+    id: 'combo-definicion-corte',
+    category: 'combos',
+    name: 'Pack Definición & Corte Total',
+    subtitle: 'Iso Whey Zero Carb (4.5 lbs) + Quemador Ripper Pro + Polera Dry-Fit BF',
+    price: 590,
+    originalPrice: 710,
+    savings: 120,
+    badge: 'POLERA DE REGALO',
+    rating: 4.9,
+    reviews: 98,
+    image: 'combo_definicion',
+    isCombo: true,
+    description: 'Fórmula de corte extremo: máxima retención muscular magra mientras aceleras el déficit calórico y la termogénesis.',
+    itemsIncluded: [
+      '1x 100% Isolate Zero Carb 4.5 lbs (65 servicios)',
+      '1x Quemador Termogénico Ripper Pro (90 cápsulas ultra potentes)',
+      '1x Polera Oficial Bolivia Fitness Dry-Fit (Elige tu talla)'
+    ],
+    benefits: [
+      'Cero grasas, cero azúcares añadidos y absorción ultrarrápida.',
+      'Complejo termogénico con té verde, cafeína anhidra y L-carnitina.',
+      'Control del apetito y energía limpia y sostenida para cardio y pesas.',
+      'Polera oficial de alta transpirabilidad incluida de regalo.'
+    ],
+    usage: 'Iso Whey: 1 scoop post-entreno o en ayunas. Ripper Pro: 1 cápsula por la mañana con abundante agua y 1 cápsula 30 minutos antes del entrenamiento.',
+    nutrition: {
+      servingSize: '1 scoop (30g)',
+      servings: '65 servicios',
+      calories: '110 kcal',
+      protein: '27g',
+      carbs: '0.4g',
+      fats: '0.2g',
+      bcaa: '6.2g',
+      thermoComplex: '850mg'
+    }
+  },
+  {
+    id: 'combo-rendimiento-energia',
+    category: 'combos',
+    name: 'Pack Rendimiento & Energía Máxima',
+    subtitle: 'Pre-Entreno NitroX (30 serv) + Creatina Micronizada (300g) + Shaker BF',
+    price: 390,
+    originalPrice: 460,
+    savings: 70,
+    badge: 'TOP ENERGÍA',
+    rating: 4.9,
+    reviews: 115,
+    image: 'combo_rendimiento',
+    isCombo: true,
+    description: 'Diseñado para romper tus marcas personales en el gimnasio: enfoque mental de túnel, bombeo muscular y energía sin bajones.',
+    itemsIncluded: [
+      '1x Pre-Workout NitroX Pump 300g (30 servicios ultra concentrados)',
+      '1x Creatina Micronizada 200 Mesh 300g (60 servicios)',
+      '1x Shaker Oficial Bolivia Fitness 700ml'
+    ],
+    benefits: [
+      '350mg de cafeína de liberación controlada y Beta-Alanina para retrasar el fallo.',
+      '6g de L-Citrulina Malato para máxima congestión y vasodilatación.',
+      'Aumento inmediato de potencia y repeticiones bajo tensión.',
+      'Shaker oficial con escala en ml y compartimento hermético.'
+    ],
+    usage: 'Pre-Workout: 1 scoop disuelto en 250ml de agua fría 20-30 minutos antes del entrenamiento. Creatina: 5g al finalizar o por la mañana.',
+    nutrition: {
+      servingSize: '1 scoop (10g)',
+      servings: '30 servicios',
+      calories: '15 kcal',
+      caffeine: '350mg',
+      citrulline: '6,000mg',
+      betaAlanine: '3,200mg',
+      creatine: '5,000mg'
+    }
+  },
+  {
+    id: 'combo-embajador-bf',
+    category: 'combos',
+    name: 'Pack Embajador Bolivia Fitness',
+    subtitle: 'Proteína Whey + Pre-Entreno NitroX + Polera + Gorra Snapback + Shaker Oficial',
+    price: 780,
+    originalPrice: 950,
+    savings: 170,
+    badge: 'PACK COMPLETO',
+    rating: 5.0,
+    reviews: 84,
+    image: 'combo_embajador',
+    isCombo: true,
+    description: 'La experiencia completa de Bolivia Fitness. Suplementación de élite y el equipamiento oficial de nuestra escuadra de atletas.',
+    itemsIncluded: [
+      '1x 100% Pure Whey Protein 5 lbs (Vainilla o Chocolate)',
+      '1x Pre-Entreno NitroX Pump (30 servicios)',
+      '1x Polera Oficial Bolivia Fitness Dry-Fit Pro',
+      '1x Gorra Snapback Pro Bordada 3D Oficial BF',
+      '1x Shaker Oficial Bolivia Fitness con esfera metálica'
+    ],
+    benefits: [
+      'Combo total: cubre nutrición previa, posterior y vestimenta de alto impacto.',
+      'El mayor ahorro del catálogo: más de Bs. 170 en beneficios y accesorios.',
+      'Ideal para atletas comprometidos y miembros del Team Bolivia Fitness.',
+      'Envío express 100% gratuito incluido a toda Bolivia.'
+    ],
+    usage: 'Combina los suplementos según tu horario de entrenamiento: Pre-entreno antes de la sesión, Whey inmediatamente al terminar.',
+    nutrition: {
+      servingSize: 'Completo',
+      servings: '72 serv. Proteína + 30 serv. Pre-entreno',
+      calories: 'Variable',
+      protein: '25g/serv',
+      caffeine: '350mg/serv'
+    }
+  },
+
+  // PROTEÍNAS
+  {
+    id: 'whey-protein-gold',
+    category: 'proteinas',
+    name: '100% Pure Whey Protein 5 lbs',
+    subtitle: 'Proteína Concentrada & Aislada de Suero de Leche',
+    price: 360,
+    originalPrice: 410,
+    savings: 50,
+    badge: 'MÁS VENDIDO',
+    rating: 4.9,
+    reviews: 260,
+    image: 'prod_whey',
+    flavors: ['Chocolate Suizo', 'Vainilla Francesa', 'Fresa Silvestre', 'Cookies & Cream'],
+    weight: '5 lbs (2.27 kg)',
+    description: 'Proteína de suero de la más alta pureza con microfiltración de flujo cruzado (CFM). Estimula la síntesis de proteína muscular y la recuperación rápida.',
+    benefits: [
+      '25g de proteína pura por porción con alto valor biológico.',
+      '5.5g de BCAAs naturales y 4g de Glutamina por servicio.',
+      'Disolución instantánea sin grumos con delicioso sabor.',
+      'Libre de gluten y baja en azúcares.'
+    ],
+    usage: 'Mezcla 1 scoop en 250-300ml de agua o leche descremada. Consumir dentro de los 30 minutos posteriores al entrenamiento o entre comidas.',
+    nutrition: {
+      servingSize: '1 scoop (32g)',
+      servings: '72 servicios',
+      calories: '128 kcal',
+      protein: '25g',
+      carbs: '2.8g',
+      fats: '1.6g',
+      bcaa: '5.5g',
+      glutamine: '4.2g'
+    }
+  },
+  {
+    id: 'iso-whey-zero',
+    category: 'proteinas',
+    name: 'Iso Whey Hydro Zero 4.5 lbs',
+    subtitle: 'Proteína Hidrolizada y Aislada 0% Carbs 0% Grasas',
+    price: 430,
+    originalPrice: 490,
+    savings: 60,
+    badge: '0% CARBS',
+    rating: 5.0,
+    reviews: 178,
+    image: 'prod_iso',
+    flavors: ['Chocolate Belga', 'Vainilla Gourmet', 'Café Latte'],
+    weight: '4.5 lbs (2.04 kg)',
+    description: 'Diseñada para fases de definición estricta, personas intolerantes a la lactosa o atletas de físico-culturismo.',
+    benefits: [
+      '27g de proteína pura hidrolizada por servicio.',
+      'Menos de 0.5g de carbohidratos y 0% grasa añadida.',
+      'Absorción ultrarrápida en menos de 20 minutos.',
+      'Ideal para definición muscular limpia y vascularidad.'
+    ],
+    usage: '1 scoop en 250ml de agua fría inmediatamente post-entrenamiento o al despertar.',
+    nutrition: {
+      servingSize: '1 scoop (30g)',
+      servings: '68 servicios',
+      calories: '110 kcal',
+      protein: '27g',
+      carbs: '0.3g',
+      fats: '0.1g',
+      bcaa: '6.4g',
+      glutamine: '4.8g'
+    }
+  },
+
+  // CREATINAS
+  {
+    id: 'creatina-creapure',
+    category: 'creatinas',
+    name: 'Creatina Creapure® Monohidratada 300g',
+    subtitle: '100% Pura, Micronizada Grado Farmacéutico',
+    price: 180,
+    originalPrice: 220,
+    savings: 40,
+    badge: '100% PURA',
+    rating: 5.0,
+    reviews: 310,
+    image: 'prod_creatina',
+    flavors: ['Sin Sabor (Unflavored)', 'Frutos Rojos'],
+    weight: '300 gramos (60 servicios)',
+    description: 'La creatina con mayor respaldo científico del mundo. Regenera rápidamente las moléculas de ATP intracelular para fuerza máxima y volumen muscular.',
+    benefits: [
+      'Aumento comprobado de la fuerza máxima y potencia en series pesadas.',
+      'Favorece la hidratación y voluminización celular intramuscular.',
+      'Retrasa la fatiga central y mejora el rendimiento cognitivo.',
+      'Sin aditivos ni rellenos, disolución transparente.'
+    ],
+    usage: 'Tomar 5g diarios (1 scoop raso) mezclados en agua, zumo o con tu batido de proteína. No requiere fase de carga obligatoria.',
+    nutrition: {
+      servingSize: '1 scoop (5g)',
+      servings: '60 servicios',
+      calories: '0 kcal',
+      creatine: '5,000mg',
+      purity: '99.99% Creapure'
+    }
+  },
+  {
+    id: 'creatina-hcl-matrix',
+    category: 'creatinas',
+    name: 'Creatine HCl Matrix 150g',
+    subtitle: 'Clorhidrato de Creatina de Alta Solubilidad',
+    price: 210,
+    originalPrice: 250,
+    savings: 40,
+    badge: 'SIN RETENCIÓN',
+    rating: 4.8,
+    reviews: 94,
+    image: 'prod_creatina_hcl',
+    flavors: ['Blue Raspberry', 'Green Apple'],
+    weight: '150 gramos (75 servicios)',
+    description: 'Fórmula microdosificada que no produce retención de líquidos subcutánea ni molestias estomacales.',
+    benefits: [
+      'Solubilidad hasta 59 veces mayor que el monohidrato tradicional.',
+      'No requiere azúcar ni carbohidratos para su transporte celular.',
+      'Ideal para atletas en categorías de peso o definición magra.',
+      'Cero retención de líquidos bajo la piel.'
+    ],
+    usage: 'Tomar 2g (1 mini scoop) con 200ml de agua 15 minutos antes o después de entrenar.',
+    nutrition: {
+      servingSize: '1 scoop (2g)',
+      servings: '75 servicios',
+      calories: '0 kcal',
+      creatineHcl: '2,000mg'
+    }
+  },
+
+  // PRE-ENTRENOS
+  {
+    id: 'preworkout-nitrox-extreme',
+    category: 'preentrenos',
+    name: 'Pre-Workout NitroX Extreme 300g',
+    subtitle: 'Energía Explosiva, Enfoque Mental y Óxido Nítrico',
+    price: 230,
+    originalPrice: 280,
+    savings: 50,
+    badge: 'MÁXIMA POTENCIA',
+    rating: 4.9,
+    reviews: 189,
+    image: 'prod_preentreno',
+    flavors: ['Fruit Punch', 'Blue Razz', 'Sandía Ácida'],
+    weight: '300 gramos (30 servicios)',
+    description: 'El pre-entreno más potente de Bolivia. Despierta tu sistema nervioso, incrementa el flujo sanguíneo y te mantiene en estado de flujo total.',
+    benefits: [
+      '350mg de cafeína anhidra y taurina para energía instantánea.',
+      '6,000mg de L-Citrulina Malato para vascularización y bombeo.',
+      '3,200mg de Beta-Alanina para amortiguar el ácido láctico.',
+      'Tirosina y Huperzina A para enfoque mental implacable.'
+    ],
+    usage: 'Comenzar con 1/2 scoop los primeros días para evaluar tolerancia. Tomar 1 scoop completo en 250ml de agua fría 20-30 minutos antes del entrenamiento.',
+    nutrition: {
+      servingSize: '1 scoop (10g)',
+      servings: '30 servicios',
+      calories: '10 kcal',
+      caffeine: '350mg',
+      citrulline: '6,000mg',
+      betaAlanine: '3,200mg',
+      tyrosine: '1,000mg'
+    }
+  },
+  {
+    id: 'preworkout-pump-nocaff',
+    category: 'preentrenos',
+    name: 'NitroPump Zero Caffeine 320g',
+    subtitle: 'Vasodilatador y Congestión Sin Estimulantes',
+    price: 240,
+    originalPrice: 290,
+    savings: 50,
+    badge: 'SIN ESTIMULANTES',
+    rating: 4.8,
+    reviews: 73,
+    image: 'prod_pump',
+    flavors: ['Limonada Glacial', 'Mango Tropical'],
+    weight: '320 gramos (30 servicios)',
+    description: 'Perfecto para quienes entrenan de noche o tienen baja tolerancia a la cafeína. Ofrece el máximo bombeo muscular sin alterar el sueño.',
+    benefits: [
+      '8,000mg de L-Citrulina pura para vasodilatación extrema.',
+      'Nitrosigine® patentado para duración del bombeo de hasta 6 horas.',
+      'Electrolitos esenciales para hidratación celular óptima.',
+      'Cero cafeína: duerme plácidamente después de entrenar duro.'
+    ],
+    usage: 'Tomar 1 scoop en 300ml de agua fría 20 minutos antes de entrenar.',
+    nutrition: {
+      servingSize: '1 scoop (10.6g)',
+      servings: '30 servicios',
+      calories: '5 kcal',
+      caffeine: '0mg',
+      citrulline: '8,000mg',
+      nitrosigine: '1,500mg'
+    }
+  },
+
+  // QUEMADORES DE GRASA
+  {
+    id: 'quemador-ripper-pro',
+    category: 'quemadores',
+    name: 'Ripper Pro Thermo Striker 90 caps',
+    subtitle: 'Termogénico Avanzado con Control del Apetito',
+    price: 210,
+    originalPrice: 260,
+    savings: 50,
+    badge: 'QUEMA GRASA',
+    rating: 4.8,
+    reviews: 145,
+    image: 'prod_quemador',
+    flavors: ['Cápsulas vegetales'],
+    weight: '90 cápsulas (45 días)',
+    description: 'Fórmula termogénica de acción sinérgica para elevar la tasa metabólica basal y movilizar los ácidos grasos como fuente de combustible.',
+    benefits: [
+      'Estimula la termogénesis y el gasto calórico diario.',
+      'Complejo con extracto de té verde EGCG, cafeína y pimienta negra BioPerine®.',
+      'Disminuye la retención de líquidos subcutáneos.',
+      'Controla los antojos por comida dulce y carbohidratos.'
+    ],
+    usage: 'Tomar 1 cápsula antes del desayuno y 1 cápsula 30 minutos antes de la sesión de entrenamiento con abundante agua. No tomar 5 horas antes de dormir.',
+    nutrition: {
+      servingSize: '2 cápsulas',
+      servings: '45 porciones',
+      caffeine: '200mg',
+      greenTea: '400mg',
+      lCarnitine: '500mg',
+      bioperine: '5mg'
+    }
+  },
+  {
+    id: 'carnitina-liquid-3000',
+    category: 'quemadores',
+    name: 'L-Carnitine 3000 Liquid Shot 500ml',
+    subtitle: 'Transportador Celular de Ácidos Grasos + Vitamina B6',
+    price: 160,
+    originalPrice: 195,
+    savings: 35,
+    badge: 'ENERGÍA CARDIO',
+    rating: 4.7,
+    reviews: 82,
+    image: 'prod_carnitina',
+    flavors: ['Naranja Mandarina', 'Manzana Verde'],
+    weight: '500 ml (33 tomas)',
+    description: 'L-Carnitina líquida de rápida absorción que facilita el transporte de grasas de cadena larga a las mitocondrias para convertirlas en energía celular pura.',
+    benefits: [
+      '3,000mg de L-Carnitina pura por servicio.',
+      'Libre de estimulantes agresivos: no causa taquicardia ni nerviosismo.',
+      'Optimiza la resistencia aeróbica y el rendimiento en cardio.',
+      'Reforzada con Vitamina B6 y cromo para metabolizar macronutrientes.'
+    ],
+    usage: 'Tomar 15ml (un vasito medidor) 20 minutos antes de tu entrenamiento de fuerza o sesión de cardio.',
+    nutrition: {
+      servingSize: '15 ml',
+      servings: '33 tomas',
+      calories: '0 kcal',
+      lCarnitine: '3,000mg',
+      vitaminB6: '2.5mg'
+    }
+  },
+
+  // MERCHANDISING OFICIAL (POLERA, GORRA Y SHAKER)
+  {
+    id: 'merch-polera-oficial',
+    category: 'merchandising',
+    name: 'Polera Oficial Bolivia Fitness Dry-Fit Pro',
+    subtitle: 'Negro Profundo con Logotipo Rojo de Alta Definición',
+    price: 140,
+    originalPrice: 170,
+    savings: 30,
+    badge: 'INDUMENTARIA',
+    rating: 4.9,
+    reviews: 132,
+    image: 'merch_polera',
+    sizes: ['S', 'M', 'L', 'XL'],
+    isApparel: true,
+    description: 'Confeccionada con tejido técnico microperforado de secado rápido. Diseñada con corte atlético que resalta hombros y torso mientras ofrece total libertad de movimiento.',
+    benefits: [
+      'Tecnología CoolDry transpirable que expulsa el sudor.',
+      'Estampado en vinil textil de alta resistencia que no se cuartea.',
+      'Costuras planas reforzadas anti-roce.',
+      'Corte ergonómico atlético para alto rendimiento.'
+    ],
+    usage: 'Lavar a máquina en ciclo suave con agua fría. No planchar sobre el estampado.',
+    sizeChart: {
+      headers: ['Talla', 'Pecho (cm)', 'Largo (cm)', 'Estatura Recomendada'],
+      rows: [
+        ['S', '94 - 100 cm', '68 cm', '1.60 - 1.70 m'],
+        ['M', '100 - 106 cm', '71 cm', '1.70 - 1.78 m'],
+        ['L', '106 - 114 cm', '74 cm', '1.78 - 1.85 m'],
+        ['XL', '114 - 124 cm', '77 cm', '1.85 - 1.95 m']
+      ]
+    }
+  },
+  {
+    id: 'merch-gorra-oficial',
+    category: 'merchandising',
+    name: 'Gorra Snapback Pro Bolivia Fitness',
+    subtitle: 'Negro Mate con Bordado 3D de Alta Densidad y Visera Curva',
+    price: 110,
+    originalPrice: 140,
+    savings: 30,
+    badge: 'ACCESORIO PRO',
+    rating: 5.0,
+    reviews: 148,
+    image: 'merch_gorra',
+    isCap: true,
+    fitType: 'Talla Única Ajustable (Snapback)',
+    description: 'Gorra deportiva estructurada de 6 paneles confeccionada en drill premium con el escudo tridimensional bordado de Bolivia Fitness en hilo rojo brillante y blanco. Incluye banda interior SweatWick absorbente.',
+    benefits: [
+      'Bordado 3D de alta densidad que mantiene relieve y color con el tiempo.',
+      'Banda interior absorbente anti-sudor para entrenar bajo calor.',
+      'Broche trasero Snapback reforzado de ajuste milimétrico.',
+      'Visera precurvada con detalle sandwich rojo en el perfil.'
+    ],
+    usage: 'Limpiar con paño húmedo y jabón suave. Secar a la sombra para mantener la estructura rígida de los paneles frontales.'
+  },
+  {
+    id: 'merch-shaker-oficial',
+    category: 'merchandising',
+    name: 'Shaker Pro 700ml Bolivia Fitness',
+    subtitle: 'Negro Mate con Esfera Batidora de Acero Quirúrgico Anti-Grumos',
+    price: 60,
+    originalPrice: 80,
+    savings: 20,
+    badge: 'ACCESORIO',
+    rating: 5.0,
+    reviews: 320,
+    image: 'merch_shaker',
+    weight: 'Capacidad 700ml / 24 oz',
+    description: 'Shaker oficial con diseño negro mate elegante, escala graduada en milímetros y onzas, y esfera mezcladora de acero inoxidable para batidos ultra suaves.',
+    benefits: [
+      '100% Libre de BPA y ftalatos tóxicos.',
+      'Cierre hermético "Snap-Lock" a prueba de fugas y caídas.',
+      'Esfera mezcladora de alambre quirúrgico que disuelve cualquier proteína.',
+      'Fácil de limpiar y apto para lavavajillas.'
+    ],
+    usage: 'Añadir primero el líquido, luego el polvo de proteína o creatina, insertar la esfera batidora y agitar durante 15 segundos.'
+  }
+];
+
+// TARIFAS DE ENVÍO Y LOGÍSTICA (EN BOLIVIANOS)
+const SHIPPING_RATES = {
+  // CLIENTES MINORISTAS
+  retail: [
+    {
+      id: 'scz_inner',
+      name: 'Santa Cruz: Centro y 1er al 4to Anillo',
+      location: 'Santa Cruz de la Sierra',
+      price: 15,
+      deliveryTime: 'Entrega hoy en 2-4 horas',
+      freeThreshold: 350,
+      description: 'Mensajería motorizada express directa a tu domicilio o trabajo.'
+    },
+    {
+      id: 'scz_outer',
+      name: 'Santa Cruz: 5to al 8vo Anillo / Plan 3000 / Pampa',
+      location: 'Santa Cruz de la Sierra',
+      price: 20,
+      deliveryTime: 'Entrega hoy en 3-5 horas',
+      freeThreshold: 450,
+      description: 'Cobertura en Plan 3000, Villa 1° de Mayo, Pampa de la Isla, Satélite Norte.'
+    },
+    {
+      id: 'scz_periferia',
+      name: 'Santa Cruz Periferia: Warnes / El Torno / La Guardia',
+      location: 'Santa Cruz Metropolitano',
+      price: 25,
+      deliveryTime: 'Entrega en 24 horas',
+      freeThreshold: 550,
+      description: 'Zonas metropolitanas de expansión de Santa Cruz.'
+    },
+    {
+      id: 'bol_lapaz',
+      name: 'La Paz y El Alto (Despacho Nacional)',
+      location: 'La Paz / El Alto',
+      price: 35,
+      deliveryTime: '24 a 48 horas vía Courrier / Flota',
+      freeThreshold: 700,
+      description: 'Envío asegurado con número de seguimiento y retiro en terminal o puerta.'
+    },
+    {
+      id: 'bol_cbba',
+      name: 'Cochabamba (Despacho Nacional)',
+      location: 'Cochabamba',
+      price: 35,
+      deliveryTime: '24 a 48 horas vía Courrier / Flota',
+      freeThreshold: 700,
+      description: 'Despacho directo express desde Santa Cruz.'
+    },
+    {
+      id: 'bol_sucre_tarija',
+      name: 'Sucre / Tarija (Despacho Nacional)',
+      location: 'Chuquisaca / Tarija',
+      price: 35,
+      deliveryTime: '24 a 48 horas vía Courrier / Flota',
+      freeThreshold: 700,
+      description: 'Despacho interdepartamental con embalaje protegido.'
+    },
+    {
+      id: 'bol_oruro_potosi',
+      name: 'Oruro / Potosí (Despacho Nacional)',
+      location: 'Oruro / Potosí',
+      price: 35,
+      deliveryTime: '48 horas vía Courrier / Flota',
+      freeThreshold: 700,
+      description: 'Cobertura nacional para atletas del altiplano.'
+    },
+    {
+      id: 'bol_beni_pando',
+      name: 'Beni (Trinidad, Riberalta) / Pando (Cobija)',
+      location: 'Beni / Pando',
+      price: 40,
+      deliveryTime: '48 a 72 horas vía Aérea / Terrestre',
+      freeThreshold: 800,
+      description: 'Despacho con embalaje sellado contra humedad tropical.'
+    }
+  ],
+
+  // MAYORISTAS (EXCLUSIVO DEPARTAMENTO DE SANTA CRUZ)
+  wholesale: [
+    {
+      id: 'ws_pickup',
+      name: 'Retiro en Almacén Central (Parque Industrial)',
+      location: 'Santa Cruz de la Sierra',
+      price: 0,
+      deliveryTime: 'Inmediato (Previa coordinación)',
+      description: 'Retiro directo sin costo en nuestro centro logístico del Parque Industrial Mz. 12.'
+    },
+    {
+      id: 'ws_scz_city',
+      name: 'Despacho Mayorista Anillos Santa Cruz de la Sierra',
+      location: 'Santa Cruz de la Sierra (1er al 8vo anillo)',
+      price: 30,
+      deliveryTime: 'Mismo día (Camioneta de reparto)',
+      description: 'Entrega por bultos o cajas completas en tu tienda, suplementera o gimnasio.'
+    },
+    {
+      id: 'ws_scz_provincias',
+      name: 'Despacho Mayorista Provincias de Santa Cruz (Montero, Camiri, etc.)',
+      location: 'Provincias Santa Cruz',
+      price: 45,
+      deliveryTime: '24 horas vía Expreso Provincial',
+      description: 'Montero, Mineros, Portachuelo, San Julián, Cuatro Cañadas, Camiri, San Ignacio.'
+    }
+  ]
+};
+
+// BANCOS PARA TRANSFERENCIA / QR EN BOLIVIA
+const BOLIVIA_BANKS = [
+  { name: 'Banco Unión', color: '#002B49' },
+  { name: 'Banco Fassil / Banco Central', color: '#1B5E20' },
+  { name: 'Banco Mercantil Santa Cruz', color: '#004B87' },
+  { name: 'Banco de Crédito BCP', color: '#FF7900' },
+  { name: 'Banco Nacional de Bolivia (BNB)', color: '#007A33' },
+  { name: 'Banco Ganadero (GanaMóvil)', color: '#D32F2F' },
+  { name: 'Banco Económico', color: '#00833E' },
+  { name: 'Banco FIE', color: '#E65100' }
+];
